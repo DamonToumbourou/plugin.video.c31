@@ -1,0 +1,35 @@
+from xbmcswift2 import Plugin, xbmcgui
+#from resources.lib import thisweekscraper
+
+
+plugin = Plugin()
+
+
+@plugin.route('/')
+def main_menu():
+
+    item = [
+        {
+            'label': 'Watch c31 Live',
+            'path': plugin.url_for('live_stream'),
+        }
+    ]
+
+    return item
+
+
+@plugin.route('/live_stream/')
+def live_stream():
+
+    item = [
+        {
+            'label': 'Play Live Stream',
+            'path': plugin.play_video('http://msn.c31.org.au/media/TalkingFishing_Pre-Record_9thFeb16_1.mp4'),
+        }
+    ]
+    
+    return item
+
+
+if __name__ == '__main__':
+    plugin.run()
