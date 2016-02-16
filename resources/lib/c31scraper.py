@@ -10,7 +10,7 @@ def get_soup(url):
     return soup
 
 
-def get_content(url):
+def get_content(url, keyword):
     soup = get_soup(url)
     content = soup.find_all('div', {'class': 'shelf-wrapper clearfix'})
     
@@ -18,12 +18,13 @@ def get_content(url):
     for i in content:
         label = i.find('span', {'class': 'branded-page-module-title-text'}).get_text()
         
-        if 'Uploads' or 'Popular uploads'  in label:
+        if keyword in label:
             found_content = i.find_all('div', {'class': 'yt-lockup-dismissable'})
             
             for k in found_content:
                 label_path = k.find('h3', {'class': 'yt-lockup-title '})
                 label = label_path.find('a').get('title')
+                print label
 
                 path = label_path.find('a').get('href')
                 path = re.search(r'\=(.*)', path).group(0)
@@ -40,4 +41,4 @@ def get_content(url):
                 output.append(item)
 
     return output
-#get_content('https://www.youtube.com/channel/UCUNfGu0l8O6FvCsuvJFgHOA/videos')
+get_content('https://www.youtube.com/user/channel31melbourne', 'C31 How To... Series')
